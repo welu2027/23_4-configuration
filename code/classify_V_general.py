@@ -97,21 +97,18 @@ def enumerate_voltages(lay, bxy, bpch, edges):
         for al in (E, S1): inc(lay.P(i, al), lay.Tp(i, 0))
         for al in (S2, S3): inc(lay.P(i, al), lay.Tp(i, 1))
     sB = SIG[lay.b_axis]
+    def use_freedom(res, orb, H):
+        if any(al not in H for al in res[orb]):
+            res[orb] = res[orb] & set(H); return [E]
+        return [E, S1]
     bcos = []
     x, y = bxy
-    bcos.append([E])
-    if any(al not in SUB[lay.b_axis] for al in resG[y]):
-        bcos.append([E]); resG[y] = resG[y] & set(SUB[lay.b_axis])
-    else:
-        bcos.append([E, S1])
+    bcos.append(use_freedom(resG, x, SUB[lay.b_axis]))
+    bcos.append(use_freedom(resG, y, SUB[lay.b_axis]))
     bpcos = []
     for k in range(nB):
         cen = lay.bp[k]; xp, yp = bpch[k]
-        opts_k = [[E]]
-        if any(al not in SUB[cen] for al in resP[yp]):
-            opts_k.append([E]); resP[yp] = resP[yp] & set(SUB[cen])
-        else:
-            opts_k.append([E, S1])
+        opts_k = [use_freedom(resP, xp, SUB[cen]), use_freedom(resP, yp, SUB[cen])]
         bpcos.append(opts_k)
     adj = {('P', j): [] for j in range(1, c + 1)}; adj.update({('G', a): [] for a in range(1, cp + 1)})
     for (j, a) in edges: adj[('P', j)].append(('G', a)); adj[('G', a)].append(('P', j))
@@ -215,7 +212,7 @@ if __name__ == '__main__':
         print("case", tag, "jobs:", len(jobs)); sys.exit(0)
     start, end = int(sys.argv[4]), int(sys.argv[5])
     t0 = time.time(); seen = {}
-    fn = '/home/claude/genV_%s_%d_%d.json' % (tag, start, end)
+    fn = '/home/claude/genVfix_%s_%d_%d.json' % (tag, start, end)
     for idx in range(start, min(end, len(jobs))):
         bxy, bpch, edges = jobs[idx]
         res = enumerate_voltages(lay, bxy, bpch, edges)

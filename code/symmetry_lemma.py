@@ -60,12 +60,16 @@ def cyclic_case(m):
                 continue
             survivors.append(((a, b, c), (a2, b2, c2)))
     return survivors
-print("Cyclic groups C_m, m = 3..46 : surviving orbit types (should be empty)")
+print("Cyclic groups C_m, m = 3..46 : orbit types surviving the counting step.")
+print("  Expected: only single-orbit types with m = 23 or 46 (all 23 points on the axis line,")
+print("  or one regular orbit of a rotation of order 23), which Proposition 6 excludes by the")
+print("  line/conic argument, not by counting.")
 for m in range(3, 47):
     s = cyclic_case(m)
     if s:
-        print("  m =", m, "->", s)
-print("  done.")
+        assert m in (23, 46) and all(a == 0 and b + c == 1 for (a, b, c), _ in s), (m, s)
+        print("  m =", m, "->", s, " [single orbit: excluded by the line/conic argument]")
+print("  Counting step complete: every survivor is a single-orbit case with m in {23, 46}.")
 groups = {
     'A4 (order 12)': [3, 4, 6, 12],
     'S4 (order 24)': [3, 4, 6, 12, 24],
