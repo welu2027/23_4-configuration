@@ -31,8 +31,7 @@ Requirements for reproduction: Python 3.12 with pynauty, numpy, mpmath, sympy; S
 An abstract under this title was submitted to the 2027 Joint Mathematics Meetings (AMS Special Session
 on Applied and Computational Algebraic Geometry, I) on September 7, 2026; the submission system's
 confirmation for submission id 66522 is timestamped September 7, 2026, 8:59 PM. The abstract already
-states both geometric (23_4) configurations -- the one with integer homogeneous coordinates and the
-self-polar one defined over Q(sqrt17) but not over Q -- the resulting characterisation that geometric
+states both geometric (23_4) configurations, the resulting characterisation that geometric
 (n_4) configurations exist if and only if n >= 18 and n != 19, the bound of four on the order of the
 projective symmetry group of a geometric (23_4) configuration, and the exact Groebner-basis
 classification of the Klein-symmetric case. Receipts are provided in `documentation/`.
