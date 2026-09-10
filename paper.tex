@@ -1,0 +1,464 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{question}{Question}
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\PGL}{\operatorname{PGL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\SO}{\operatorname{SO}}
+
+\title{Closing the existence problem for geometric $(n_4)$ configurations}
+\author{Wenhao Lu}
+\date{}
+
+\begin{document}
+
+
+
+\maketitle
+
+\begin{abstract}
+A geometric $(n_4)$ configuration is a set of $n$ points and $n$ lines in the real projective plane such that every point lies on exactly four of the lines and every line contains exactly four of the points.  The question of which $n$ admit such a configuration was posed by Gr\"unbaum in 2000, following his 1990 paper with Rigby that gave the first geometric $4$-configuration, a $(21_4)$.  Successive work of Bokowski--Schewe, Bokowski--Gr\"unbaum--Schewe, Bokowski--Pilaud and Cuntz settled every case but one.  Cuntz's 2018 paper, which constructed $(22_4)$ and $(26_4)$ configurations, states that only $n=23$ remained open.
+
+We settle this last case by exhibiting two geometric $(23_4)$ configurations.  The first has integer homogeneous coordinates, so that verifying it is an exercise in integer arithmetic; the second is self-polar with respect to a conic and is defined over $\QQ(\sqrt{17})$, but not over $\QQ$.  Consequently geometric $(n_4)$ configurations exist if and only if $n\ge18$ and $n\ne19$.
+
+We also explain why $n=23$ resisted the symmetric constructions that settled the other values.  We prove that the group of projective symmetries of any geometric $(23_4)$ configuration has order at most four.  Reducing the case of a Klein four-group of symmetries to a few thousand bilinear polynomial systems in $18$ unknowns, and solving all of them exactly with Gr\"obner bases and saturation, shows that our two configurations are the only Klein-symmetric ones, over $\RR$ and over $\CC$.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+A \emph{geometric $(n_k)$ configuration} is a set $\cP$ of $n$ points and a set $\cL$ of $n$ lines in the real projective plane such that every point of $\cP$ lies on exactly $k$ lines of $\cL$ and every line of $\cL$ contains exactly $k$ points of $\cP$.  (If lines are replaced by pseudolines one speaks of \emph{topological} configurations, and if the points and lines are abstract one speaks of \emph{combinatorial} configurations; we are concerned exclusively with the geometric notion.)  The systematic study of $(n_k)$ configurations goes back to the nineteenth century; the monograph of Gr\"unbaum \cite{Gru09} and the book of Pisanski and Servatius \cite{PS13} give the history and the state of the art.  The central existence question, \emph{for which $n$ does a geometric $(n_k)$ configuration exist?}, is completely answered for $k=3$ (exactly when $n\ge 9$) and wide open for $k\ge 5$.
+
+For $k=4$ the answer has been determined value by value over the last three decades, starting from the first geometric $4$-configuration, the $(21_4)$ of Gr\"unbaum and Rigby \cite{GR90}.  Gr\"unbaum \cite{Gru00a,Gru00,Gru02,Gru06} showed that geometric $(n_4)$ configurations exist for all $n\ge 18$ with a finite list of possible exceptions; Bokowski and Schewe proved that none exist for $n\le 16$ \cite{BS05} and none for $n=17$, and found the first $(18_4)$ \cite{BS13}; Bokowski and Pilaud showed that there are exactly two $(18_4)$ configurations and no $(19_4)$ configuration \cite{BP15}, and constructed $(37_4)$ and $(43_4)$ configurations \cite{BP16}; finally Cuntz constructed $(22_4)$ and $(26_4)$ configurations \cite{Cun18}.  After Cuntz's paper exactly one case remained.  In his words, ``concerning the existence of geometric $(n_4)$ configurations, only the case $n=23$ remains open'' \cite{Cun18}; see also \cite[\S1]{GP21} and \cite{BGPZ24}.  Cuntz also exhibited a $(23_4)$ configuration in the \emph{complex} projective plane, $23$ lines defined over $\QQ(i)$ with $25$ quadruple points \cite[\S2.3]{Cun18}, remarking that it gives no hint about real existence; it is not projectively equivalent to a real configuration, and it is not one of ours (see the remark on complex configurations at the end of Section~\ref{sec:config}).
+
+\emph{Note added September 9, 2026.}  This paper was written on September 6, 2026.  After it was completed, an independent solution of the same problem was made public by W.~Strinz (September 8, 2026, DOI 10.5281/zenodo.22662692).  His two configurations coincide with ours, the rational one up to the coordinate interchange $y\leftrightarrow z$, and his classification of the Klein-symmetric case agrees with Theorem~\ref{thm:classification}.  The configurations here were found on September 6, 2026, and the results were submitted as a conference abstract on September 7, 2026.
+
+\begin{theorem}\label{thm:main}
+There exist geometric $(23_4)$ configurations, as follows.
+\begin{enumerate}
+\item[(A)] In homogeneous coordinates $(x:y:z)$, let $\cP_A$ consist of the $23$ points
+\begin{equation}\label{eq:pointsA}
+\begin{gathered}
+(1{:}0{:}0),\quad (0{:}1{:}{\pm}1),\quad (0{:}3{:}{\pm}2),\quad (1{:}{\pm}1{:}0),\\
+(3{:}{\pm}2{:}{\pm}2),\quad (2{:}{\pm}3{:}{\pm}2),\quad (6{:}{\pm}1{:}{\pm}2),\quad (6{:}{\pm}5{:}{\pm}2),
+\end{gathered}
+\end{equation}
+and let $\cL_A$ consist of the $23$ lines
+\begin{equation}\label{eq:linesA}
+\begin{gathered}
+x=0,\quad y\pm z=0,\quad 2y\pm3z=0,\quad x\pm3z=0,\\
+x\pm2y\pm2z=0,\quad 2x\pm6y\pm9z=0,\quad 2x\pm2y\pm z=0,\quad 2x\pm2y\pm5z=0,
+\end{gathered}
+\end{equation}
+where all sign combinations are taken.  Then $(\cP_A,\cL_A)$ is a geometric $(23_4)$ configuration.
+\item[(B)] Let $\tau=\sqrt{(1+\sqrt{17})/4}\approx 1.1317139$, so that $2\tau^4-\tau^2-2=0$ and $\tau^{-1}=\sqrt{(\sqrt{17}-1)/4}$.  In an affine chart of the real projective plane with coordinates $(X,Z)$, let $\cP_B$ consist of the point $O_1$ at infinity in the direction of the $X$-axis together with the $22$ finite points
+\begin{equation}\label{eq:points}
+\begin{gathered}
+(0,\pm\tau),\quad (0,\pm\tau^{-1}),\quad (\pm 2,\,0),\\
+(\pm 1,\ \pm(\tau+\tau^{-1})),\quad (\pm 2\tau^{2},\ \pm\tau),\quad
+(\pm 1,\ \pm(\tau-\tau^{-1})),\quad (\pm 2\tau^{-2},\ \pm\tau^{-1}),
+\end{gathered}
+\end{equation}
+and let $\cL_B$ consist of the polar lines of the points of $\cP_B$ with respect to the conic $X^2-2Z^2=2$ (that is, the line $X_0X-2Z_0Z=2$ for a finite point $(X_0,Z_0)$, and the line $X=0$ for $O_1$).  Then $(\cP_B,\cL_B)$ is a geometric $(23_4)$ configuration.  It is defined over $\QQ(\sqrt{17})$, because the substitution $Z\mapsto\tau Z$ turns it into the configuration whose finite points are
+\begin{equation}\label{eq:points17}
+\begin{gathered}
+(0,\pm1),\quad \Bigl(0,\pm\tfrac{\sqrt{17}-1}{4}\Bigr),\quad(\pm2,0),\quad \Bigl(\pm1,\pm\tfrac{3+\sqrt{17}}{4}\Bigr),\\
+\Bigl(\pm\tfrac{1+\sqrt{17}}{2},\pm1\Bigr),\quad \Bigl(\pm1,\pm\tfrac{5-\sqrt{17}}{4}\Bigr),\quad \Bigl(\pm\tfrac{\sqrt{17}-1}{2},\pm\tfrac{\sqrt{17}-1}{4}\Bigr),
+\end{gathered}
+\end{equation}
+self-polar with respect to the conic $X^2-\frac{1+\sqrt{17}}{2}Z^2=2$.  It is not projectively equivalent to a configuration with rational coordinates.
+\end{enumerate}
+The two configurations are not isomorphic as incidence structures.
+\end{theorem}
+
+Figures~\ref{fig:configA} and~\ref{fig:config} show the two configurations.  Combining Theorem~\ref{thm:main} with the results cited above we obtain the complete answer to the existence question for $k=4$.
+
+\begin{corollary}\label{cor:complete}
+A geometric $(n_4)$ configuration exists if and only if $n\ge 18$ and $n\ne 19$.
+\end{corollary}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.78\textwidth]{figA_orbits.pdf}
+\caption{The integral configuration $(\cP_A,\cL_A)$ of Theorem~\ref{thm:main}(A), drawn in the chart $x=1$ with coordinates $(y/x,\,z/x)$, so that $O_1=(1{:}0{:}0)$ is at the origin and the four points of $\cP_A$ on the line $x=0$ are at infinity.  Points are coloured by their orbit under the Klein four-group $V$; the eight orbits have sizes $1,2,2,2,4,4,4,4$.  The picture is symmetric under the reflections in both axes, which generate the full symmetry group.}
+\label{fig:configA}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.78\textwidth]{figB_orbits.pdf}
+\caption{The self-polar configuration $(\cP_B,\cL_B)$ of Theorem~\ref{thm:main}(B), drawn in the chart of \eqref{eq:points}.  The point $O_1$ is at infinity in the horizontal direction, and the four horizontal lines are the four lines through it.  Points are coloured by their orbit under the Klein four-group $V$.  The picture is symmetric under the reflections $(X,Z)\mapsto(\pm X,\pm Z)$, which generate the full symmetry group of the configuration.}
+\label{fig:config}
+\end{figure}
+
+Almost all known geometric $(n_4)$ configurations were found by imposing a large symmetry group (cyclic or dihedral of order at least $6$) and solving the resulting small system of equations; see \cite[Ch.~3]{Gru09} and \cite{BGPZ24}.  The following result shows that this strategy is bound to fail for $n=23$.
+
+\begin{theorem}\label{thm:symmetry}
+Let $\cC$ be a geometric $(23_4)$ configuration.  Then the group of projective collineations of the real projective plane mapping $\cC$ onto itself is trivial, cyclic of order two, or the Klein four-group $\ZZ_2\times\ZZ_2$.
+\end{theorem}
+
+Both configurations of Theorem~\ref{thm:main} therefore have the largest possible symmetry group.  Our third result is that they are the only ones with this property.
+
+\begin{theorem}\label{thm:classification}
+Up to projective equivalence, the two configurations of Theorem~\ref{thm:main} are the only geometric $(23_4)$ configurations whose collineation group contains a Klein four-group.  The same statement holds for $(23_4)$ configurations in the complex projective plane.  Both configurations are self-polar: $(\cP_A,\cL_A)$ with respect to the conic $x^2+6yz=0$ and $(\cP_B,\cL_B)$ with respect to the conic of Theorem~\ref{thm:main}(B).
+\end{theorem}
+
+Theorem~\ref{thm:main} is proved by exact computations, in $\ZZ$ for (A) and in the field $\QQ(\tau)$ for (B), which are short enough to be checked by hand and which we describe in Section~\ref{sec:config}; a standard-library Python script performing both verifications accompanies the paper.  Theorem~\ref{thm:symmetry} is proved in Section~\ref{sec:symmetry} by an orbit-counting argument.  Theorem~\ref{thm:classification} is proved in Section~\ref{sec:classification}.  We show that a Klein-symmetric $(23_4)$ configuration has a rigidly determined orbit structure, enumerate the $4021$ admissible ``quotient structures'', and solve the corresponding polynomial systems exactly with Gr\"obner bases.  Section~\ref{sec:search} explains how the configurations were found, namely by a search for Klein-symmetric self-polar configurations over small finite fields followed by lifting to characteristic zero (which produced (B)), and then by the classification itself (which produced (A)); Section~\ref{sec:remarks} collects remarks and open questions.
+
+In Section~\ref{sec:background}, we fix definitions and notation.  In Section~\ref{sec:config}, we give the two configurations and prove Theorem~\ref{thm:main}.  In Section~\ref{sec:symmetry}, we prove Theorem~\ref{thm:symmetry}.  In Section~\ref{sec:classification}, we prove the structure theorem for Klein-symmetric $(23_4)$ configurations, describe the enumeration and the exact solution of the resulting polynomial systems, and prove Theorem~\ref{thm:classification}.  In Section~\ref{sec:search}, we explain how the configurations were found.  Lastly, in Section~\ref{sec:remarks} we discuss directions for further research.
+
+\section{Background}\label{sec:background}
+
+We work in the real projective plane $\PP^2(\RR)$, whose points and lines are the one- and two-dimensional subspaces of $\RR^3$; a point is written $(x{:}y{:}z)$ and a line $[a{:}b{:}c]$, and the point lies on the line if and only if $ax+by+cz=0$.  Two points $(x{:}y{:}z)$ and $(x'{:}y'{:}z')$ coincide if and only if their cross product vanishes, and dually for lines.
+
+\begin{definition}
+A \emph{combinatorial $(n_k)$ configuration} is an incidence structure with $n$ points and $n$ lines in which every point is incident with $k$ lines, every line with $k$ points, and two points are incident with at most one common line.  Its \emph{Levi graph} is the bipartite graph on the points and lines whose edges are the incidences; it is $k$-regular of girth at least $6$.  A \emph{geometric $(n_k)$ configuration} is a combinatorial one whose points and lines are realized by distinct points and lines of $\PP^2(\RR)$ with exactly the prescribed incidences.
+\end{definition}
+
+The combinatorial existence problem is easy: combinatorial $(n_4)$ configurations exist for all $n\ge13$.  The geometric problem is not, because a combinatorial configuration may have no realization by straight lines, and deciding realizability amounts to solving a system of polynomial equations.  In this paper ``configuration'' means geometric configuration unless stated otherwise.
+
+\begin{definition}
+Two configurations are \emph{projectively equivalent} if a projectivity of $\PP^2(\RR)$, i.e.\ an element of $\PGL_3(\RR)$, carries the points of one onto the points of the other and hence the lines onto the lines.  A \emph{collineation} of a configuration is a projectivity carrying its point set to itself; the collineations form a finite group, the \emph{symmetry group} of the configuration.  A \emph{correlation} is a projective map carrying points to lines and lines to points and preserving incidence; it is a \emph{polarity} if it is an involution, in which case it is the polarity with respect to a conic, given by a symmetric matrix.  A configuration is \emph{self-dual} if some correlation carries its points onto its lines and \emph{self-polar} if some polarity does.
+\end{definition}
+
+\begin{definition}
+The \emph{Klein four-group} is the group $V=\ZZ_2\times\ZZ_2$.  Any Klein four-group of projectivities of $\PP^2(\RR)$ is conjugate to the group of diagonal matrices $\operatorname{diag}(\pm1,\pm1,\pm1)$, whose three nontrivial elements $\sigma_1,\sigma_2,\sigma_3$ are the harmonic homologies with centres the coordinate points $O_1,O_2,O_3$ and axes the opposite coordinate lines $\ell_1,\ell_2,\ell_3$.  A configuration is \emph{Klein-symmetric} if its symmetry group contains a Klein four-group.
+\end{definition}
+
+The \emph{cross-ratio} of four collinear points is invariant under projectivities, and a configuration whose points have coordinates in a field $K$ has all its cross-ratios in $K$; this is how fields of definition are bounded from below in Section~\ref{sec:config}.  The \emph{field of definition} of a configuration is the smallest field over which some projectively equivalent configuration has all its coordinates.
+
+\section{The two configurations}\label{sec:config}
+
+\subsection{The integral configuration}
+The $23$ points \eqref{eq:pointsA} and the $23$ lines \eqref{eq:linesA} are given by primitive integer vectors; write $[a{:}b{:}c]$ for the line $ax+by+cz=0$.  A point lies on a line if and only if the corresponding integer dot product vanishes.  \ref{app:incidenceA} lists, for each of the $23$ lines, the four points of $\cP_A$ on it, with the labels $O_1=(1{:}0{:}0)$, $T_1^{\pm}=(0{:}1{:}{\pm}1)$, $T_2^{\pm}=(0{:}3{:}{\pm}2)$, $S^{\pm}=(1{:}{\pm}1{:}0)$, $R_1^{\epsilon\delta}=(3{:}2\epsilon{:}2\delta)$, $R_2^{\epsilon\delta}=(2{:}3\epsilon{:}2\delta)$, $R_3^{\epsilon\delta}=(6{:}\epsilon{:}2\delta)$, $R_4^{\epsilon\delta}=(6{:}5\epsilon{:}2\delta)$ ($\epsilon,\delta\in\{+,-\}$).  Checking the table amounts to $23\cdot23=529$ integer dot products, and one finds that each line contains exactly four of the points, each point lies on exactly four of the lines, and no two points lie on two common lines.  The points are visibly pairwise distinct, and so are the lines.  This proves part (A) of Theorem~\ref{thm:main}; the same $529$ products are computed by the short script in \ref{app:script}, and the proof of Theorem~\ref{thm:main}(A) is complete.  For instance, the line $[2{:}6{:}-9]$ contains $T_2^{+}=(0{:}3{:}2)$ ($18-18=0$), $R_1^{++}=(3{:}2{:}2)$ ($6+12-18=0$), $R_3^{++}=(6{:}1{:}2)$ ($12+6-18=0$) and $R_4^{--}=(6{:}-5{:}-2)$ ($12-30+18=0$), and no other point of $\cP_A$.
+
+The configuration is invariant under the Klein four-group $V=\{\operatorname{diag}(\pm1,\pm1,\pm1)\}$ (Section~\ref{sec:symmetry}), whose orbits on $\cP_A$ have sizes $1,2,2,2,4,4,4,4$.  It is also self-polar: the polarity $\pi_A\colon(x{:}y{:}z)\mapsto[x{:}3z{:}3y]$ of the conic $x^2+6yz=0$ maps $\cP_A$ onto $\cL_A$, as one reads off from \eqref{eq:pointsA} and \eqref{eq:linesA} (for instance $(3{:}2{:}2)\mapsto[1{:}2{:}2]$ and $(6{:}5{:}2)\mapsto[2{:}2{:}5]$).  So $\cL_A$ is simply the set of polars of the points \eqref{eq:pointsA}, and the configuration is determined by its points and one conic, exactly as $(\cP_B,\cL_B)$ is.  The correlations carrying $\cP_A$ to $\cL_A$ are the four maps $\pi_Av$, $v\in V$; two of them ($v=e$ and $v=\sigma_1$) are polarities and the other two, for instance $\gamma\colon(x{:}y{:}z)\mapsto[x{:}3z{:}-3y]$, have order four, since $\gamma^2=\operatorname{diag}(1,-1,-1)\in V$.  The automorphism group of the incidence structure, i.e.\ of the Levi graph with points and lines allowed to interchange, has order $8$, generated by $V$ and $\pi_A$.
+
+\subsection{Homogeneous description of the self-polar configuration}
+Write points of the projective plane as $(x:y:z)$; the chart of Theorem~\ref{thm:main} is $y=1$, $(X,Z)=(x/y,\,z/y)$.  The conic $X^2-2Z^2=2$ is the zero set of the quadratic form with Gram matrix $B=\operatorname{diag}(-1,2,2)$, and the polar line of a point $p$ is $\{q: p^{\mathsf T}Bq=0\}$.  Thus $\cL=\{\pi(p):p\in\cP\}$ where $\pi$ is the polarity of $B$, and a point $q\in\cP$ lies on the line $\pi(p)$ if and only if
+\begin{equation}\label{eq:form}
+-\,x_px_q+2y_py_q+2z_pz_q=0 .
+\end{equation}
+Since $B$ is symmetric, $q\in\pi(p)$ if and only if $p\in\pi(q)$.  Consequently the incidence structure $(\cP,\cL)$ is encoded by the graph $\Gamma$ on $\cP$ (with loops allowed) in which $p\sim q$ when \eqref{eq:form} holds, so that the four points on $\pi(p)$ are the neighbours of $p$, and $(\cP,\cL)$ is a $(23_4)$ configuration if and only if $\Gamma$ is $4$-regular (loops counted once) and two distinct vertices never have two common neighbours.  There are no loops in our case, i.e.\ no point of $\cP$ lies on its own polar.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+label & point $(x:y:z)$ & label & point $(x:y:z)$\\
+\midrule
+$O_1$ & $(1:0:0)$ & $S^{\pm}$ & $(\pm2:1:0)$\\
+$T_1^{\pm}$ & $(0:1:\pm\tau)$ & $C_1^{\epsilon\delta}$ & $(\epsilon:1:\delta(\tau+\tau^{-1}))$\\
+$T_2^{\pm}$ & $(0:1:\pm\tau^{-1})$ & $C_2^{\epsilon\delta}$ & $(2\epsilon\tau^{2}:1:\delta\tau)$\\
+ & & $C_3^{\epsilon\delta}$ & $(\epsilon:1:\delta(\tau-\tau^{-1}))$\\
+ & & $C_4^{\epsilon\delta}$ & $(2\epsilon\tau^{-2}:1:\delta\tau^{-1})$\\
+\bottomrule
+\end{tabular}
+\medskip
+\caption{The $23$ points, $\epsilon,\delta\in\{+,-\}$.  Here $\tau^2=(1+\sqrt{17})/4$, $\tau^{-2}=(\sqrt{17}-1)/4$, $\tau^{-1}=\tau^3-\tau/2$, $(\tau+\tau^{-1})^2=(4+\sqrt{17})/2$ and $(\tau-\tau^{-1})^2=(\sqrt{17}-4)/2$.}
+\label{tab:points}
+\end{table}
+
+\subsection{Proof of Theorem \ref{thm:main}(B)}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}(B)]
+All coordinates in Table~\ref{tab:points} lie in the field $K=\QQ(\tau)$, which has degree $4$ over $\QQ$ (the minimal polynomial $2t^4-t^2-2$ is irreducible, its roots being $\pm\tau$ and $\pm i\tau^{-1}$; $K$ has two real embeddings and one pair of complex ones).  Evaluating the bilinear form \eqref{eq:form} on the $\binom{23}{2}+23=276$ pairs of points is a finite computation in $K$, in which every element is a polynomial of degree at most $3$ in $\tau$ with rational coefficients, reduced using $\tau^4=\tfrac12\tau^2+1$.  The result is an incidence table in which every point has exactly four neighbours, no point is its own neighbour, and any two distinct points have at most one common neighbour.  Moreover the $23$ points are pairwise distinct (they are given in normalized form, and the four generic orbits are distinguished already by the absolute values of their coordinates), and since $B$ is nondegenerate, distinct points have distinct polars.  It follows that $(\cP_B,\cL_B)$ is a geometric $(23_4)$ configuration, and its coordinates are real under the embedding $\tau\mapsto\sqrt{(1+\sqrt{17})/4}$.  The two configurations of Theorem~\ref{thm:main} are not isomorphic, since the automorphism groups of their Levi graphs (points and lines kept apart) have orders $4$ and $8$ respectively.  In Table~\ref{tab:points} every $x$- and $y$-coordinate lies in $\QQ(\sqrt{17})=\QQ(\tau^2)$ and every $z$-coordinate lies in $\tau\QQ(\sqrt{17})$, so the diagonal projectivity $z\mapsto z/\tau$ maps $\cP_B$ to the points \eqref{eq:points17}, maps $\cL_B$ to lines with coefficients in $\QQ(\sqrt{17})$, and maps the conic $X^2-2Z^2=2$ to $X^2-2\tau^2Z^2=2$, which is the conic stated; we verified all of this exactly.  Finally, the cross-ratio of the four points $(0,\pm1)$, $(0,\pm\frac{\sqrt{17}-1}{4})$ of \eqref{eq:points17} on the line $X=0$ is $33-8\sqrt{17}\notin\QQ$ (in fact $19$ of the $23$ collinear quadruples have irrational cross-ratio); since cross-ratios are projective invariants, no projectively equivalent configuration has all its coordinates in $\QQ$.  This completes the proof of Theorem~\ref{thm:main}(B).
+\end{proof}
+
+The computation was carried out independently in three ways, namely with exact arithmetic in $K$ implemented from scratch in Python using only the standard library, in PARI/GP working in the number field $\QQ[y]/(y^4-2y^2-16)$ ($y=2\tau$), and in high-precision floating point.  A reader wishing to check the table by hand may note that, because of the symmetry $(X,Z)\mapsto(\pm X,\pm Z)$ discussed next, only $23$ of the $276$ evaluations are genuinely different.  \qed
+
+\subsection{Symmetry of the self-polar configuration}
+The diagonal matrices $\sigma_1=\operatorname{diag}(1,-1,-1)$, $\sigma_2=\operatorname{diag}(-1,1,-1)$, $\sigma_3=\operatorname{diag}(-1,-1,1)$ generate a Klein four-group $V\subset\PGL_3(\RR)$; in the chart these are the reflections $(X,Z)\mapsto(\pm X,\pm Z)$.  Table~\ref{tab:points} is visibly $V$-invariant, and $V$ commutes with $B$, so $V$ acts on $(\cP_B,\cL_B)$.  The $V$-orbits on $\cP$ have sizes $1,2,2,2,4,4,4,4$, namely the fixed point $O_1$, the pairs $T_1,T_2$ on the axis $\ell_1=\{x=0\}$ (each pair fixed by $\sigma_1$), the pair $S$ on the axis $\ell_3=\{z=0\}$, and the four regular orbits $C_1,\dots,C_4$.  By Theorem~\ref{thm:symmetry}, $V$ is the full collineation group of the configuration.  The automorphism group of the Levi graph with points and lines kept apart has order $8$ and contains $V$ with index $2$; the four automorphisms outside $V$ are induced by no collineation, as Theorem~\ref{thm:symmetry} demands (they come from the Galois conjugation $\sqrt{17}\mapsto-\sqrt{17}$).  The Levi graph is connected of girth $6$ and vertex-connectivity $4$.
+
+\begin{remark}\label{rem:props}
+We collect some further properties of the two configurations.
+
+(i) Neither configuration is \emph{polycyclic} in the sense of \cite{BGPZ24} (the orbits of its symmetry group do not all have the same size); since $23$ is prime, a polycyclic $(23_4)$ would have to be cyclic of order $23$ or trivial, and the former is excluded by Theorem~\ref{thm:symmetry}.
+
+(ii) The point set \eqref{eq:points} is invariant under the substitution $\tau\leftrightarrow\tau^{-1}$, which also preserves the conic.  This reflects the fact, established in Section~\ref{sec:classification}, that the four Galois conjugates of the configuration (over $\CC$, after a diagonal rescaling) are all projectively equivalent to the configuration itself.
+
+(iii) The integral configuration shows that the field of definition of a geometric $(23_4)$ configuration can be $\QQ$ itself; the coordinates in \eqref{eq:pointsA}--\eqref{eq:linesA} are remarkably small.  By Theorem~\ref{thm:main}, the fields of definition of the two configurations (the smallest fields over which a projectively equivalent configuration can be written) are exactly $\QQ$ and $\QQ(\sqrt{17})$.  We do not know whether the two configurations are related by a construction.
+\end{remark}
+
+\begin{remark}\label{rem:complex}
+Configurations $(23_4)$ in the complex projective plane were known before.  Cuntz \cite[\S2.3]{Cun18} lists $23$ lines with coordinates in $\QQ(i)$ having $25$ points of multiplicity four, $23$ of which form a $(23_4)$ configuration (we checked that exactly one choice of $23$ of the $25$ points works).  We computed that its incidence structure is different from those of $(\cP_A,\cL_A)$ and $(\cP_B,\cL_B)$, that its Levi graph has automorphism group of order $8$, and that its group of complex collineations is cyclic of order $4$.  Consequently it is not projectively equivalent to a real configuration, because a projectivity mapping a real point set containing four points in general position (Lemma~\ref{lem:general}) to itself is real, so a real configuration has the same collineation group over $\CC$ as over $\RR$, and a collineation of order four is excluded by Theorem~\ref{thm:symmetry}.  (This is consistent with Cuntz's remark that the realizations of his matroids are unique up to projectivities and Galois automorphisms.)  It is also consistent with Theorem~\ref{thm:classification} over $\CC$, which concerns Klein four-groups, and it shows that the analogue of Theorem~\ref{thm:symmetry} fails over $\CC$.  The other complex examples mentioned in \cite[Remark~2.3]{Cun18} are not given explicitly.
+\end{remark}
+
+\begin{remark}\label{rem:rigid}
+Both configurations are \emph{infinitesimally rigid}: the Jacobian of the $92$ incidence equations with respect to the $138$ homogeneous coordinates has rank exactly $84=138-54$ at each of them, the kernel being spanned by the $46$ rescalings of the coordinate vectors and the tangent space of $\PGL_3$ (rank at least $84$ by an exact computation modulo a prime, at most $84$ because these $54$ trivial motions are independent).  Each configuration is therefore an isolated point of the realization space of its incidence structure modulo projectivities.
+\end{remark}
+
+\section{Symmetry groups of $(23_4)$ configurations}\label{sec:symmetry}
+
+The following elementary fact is used three times in the paper.
+
+\begin{lemma}\label{lem:general}
+Every geometric $(23_4)$ configuration $(\cP,\cL)$ contains four points in general position.
+\end{lemma}
+
+\begin{proof}
+We first show that $\cP$ contains three non-collinear points.  Suppose for sake of contradiction that all points of $\cP$ lie on one line $\ell$.  Then every line other than $\ell$ contains at most one point of $\cP$, so $\ell$ is the only line of $\cL$, contradicting $|\cL|=23$.  We may thus choose three non-collinear points $a,b,c\in\cP$.
+
+It remains to show that some fourth point of $\cP$ lies on none of the lines $ab$, $bc$, $ca$.  Suppose for sake of contradiction that every point of $\cP$ lies on one of these three lines.  A line different from $ab$, $bc$ and $ca$ meets each of them in at most one point, and so contains at most three points of $\cP$.  It follows that every line of $\cL$, which contains four points of $\cP$, is one of the three lines $ab$, $bc$, $ca$.  We have obtained a contradiction with $|\cL|=23$, showing that $\cP$ contains four points in general position.  The proof is complete.
+\end{proof}
+
+We identify the real projective plane $\PP^2(\RR)$ with the sphere $S^2$ modulo antipodal identification.  A projective collineation of $\PP^2(\RR)$ is induced by an element of $\PGL_3(\RR)\cong\SL_3(\RR)$; a finite subgroup of $\SL_3(\RR)$ preserves a positive definite quadratic form (average any such form over the group) and is therefore conjugate to a finite subgroup of $\SO(3)$.  The finite subgroups of $\SO(3)$ are the cyclic groups $C_m$, the dihedral groups $D_m$ (of order $2m$), and the rotation groups $A_4$, $S_4$, $A_5$ of the Platonic solids.  Every group in this list other than $C_1$, $C_2$ and $D_2\cong\ZZ_2\times\ZZ_2$ contains a rotation of order $m\ge3$.  We will deduce Theorem~\ref{thm:symmetry} from the following proposition.
+
+\begin{proposition}\label{prop:norotation}
+No geometric $(23_4)$ configuration is invariant under a rotation of order $m\ge3$.
+\end{proposition}
+
+\begin{proof}
+Let $r\in\SO(3)$ be a rotation of order $m\ge3$ about an axis $a$, acting on $\PP^2(\RR)=S^2/\pm$.  We first describe the orbits of $\langle r\rangle$.  The rotation fixes the point $O$, the image of $a\cap S^2$, and the line $\ell$, the image of the great circle orthogonal to $a$, and no other point or line.  Let $s=m$ if $m$ is odd and $s=m/2$ if $m$ is even.  Note that $r^j$ fixes a point of $\ell$ if and only if it maps that point to itself or to its antipode, that is, if and only if $2j\equiv0\pmod m$.  It follows that every orbit of $\langle r\rangle$ on the points of $\ell$ has size $s$, and by polarity the same holds for the lines through $O$.  Every other point and every other line has an orbit of size $m$.
+
+Suppose now that a $(23_4)$ configuration $(\cP,\cL)$ is $r$-invariant.  Let $a=[O\in\cP]$, let $b$ be the number of orbits of points of $\cP$ on $\ell$, and let $c$ be the number of remaining orbits of points of $\cP$.  Counting the points of $\cP$ orbit by orbit, we obtain
+\begin{equation}\label{eq:count}
+23=a+bs+cm,\qquad a\in\{0,1\}.
+\end{equation}
+We consider the two cases $a=1$ and $a=0$ separately.
+
+Suppose first that $a=1$.  The four lines of $\cL$ through $O$ form a union of orbits of lines through $O$, each of size $s\ge2$, so $s$ divides $4$ and hence $s\in\{2,4\}$.  Thus $m\in\{4,8\}$.  If $m=8$, then $s=4$ and \eqref{eq:count} reads $22=4b+8c$, which has no solution in nonnegative integers.  Thus $m=4$ and $s=2$.  We now count lines in the same way.  Let $a'=[\ell\in\cL]\in\{0,1\}$.  The four lines of $\cL$ through $O$ form exactly two orbits of size $2$, and there is no further line of $\cL$ through $O$; every other line of $\cL$ lies in an orbit of size $4$.  Therefore $23=a'+4+4c'$ for some integer $c'\ge0$.  However, $19-a'$ is not divisible by $4$ for $a'\in\{0,1\}$.  We have obtained a contradiction, showing that $a=1$ is impossible.  By the dual argument, $\ell\notin\cL$.
+
+Suppose now that $a=0$.  If $m$ is odd, then $s=m$ and \eqref{eq:count} reads $23=m(b+c)$; since $m\ge3$ and $23$ is prime, we obtain $m=23$ and $b+c=1$.  If $m$ is even, then $s=m/2$ and \eqref{eq:count} reads $23=\frac m2(b+2c)$; since $m/2\ge2$, we obtain $m=46$, $b=1$ and $c=0$.  In every case $\cP$ is a single orbit of $\langle r\rangle$, and either all $23$ points of $\cP$ lie on the line $\ell$, or $\cP$ is a regular orbit of a rotation of order $23$.
+
+In the first case, recall that $\ell\notin\cL$.  Thus every line of $\cL$ meets $\ell$ in a single point and therefore contains at most one point of $\cP$, contradicting the fact that every line of $\cL$ contains four points of $\cP$.  In the second case, $\cP$ lies on the image in $\PP^2(\RR)$ of a circle of latitude of $S^2$ with respect to the axis $a$, and this image is a conic.  A line meets a conic in at most two points, so every line of $\cL$ contains at most two points of $\cP$, which is again a contradiction.  It follows that no $(23_4)$ configuration is $r$-invariant, and the proof is complete.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:symmetry}]
+Let $G$ be the group of projective collineations of $\PP^2(\RR)$ mapping $\cC$ onto itself.  By Lemma~\ref{lem:general}, $\cC$ contains four points in general position, and a projectivity fixing four points in general position is the identity.  Thus $G$ acts faithfully on the $23$ points of $\cC$ and embeds in the symmetric group on them, so $G$ is finite.  As noted above, $G$ is therefore conjugate to a finite subgroup of $\SO(3)$, and every finite subgroup of $\SO(3)$ other than $C_1$, $C_2$ and $D_2\cong\ZZ_2\times\ZZ_2$ contains a rotation of order $m\ge3$.  By Proposition~\ref{prop:norotation}, $G$ contains no such rotation.  It follows that $G$ is trivial, cyclic of order two, or a Klein four-group.  This completes the proof of Theorem~\ref{thm:symmetry}.
+\end{proof}
+
+\begin{remark}
+The proof shows more precisely that a rotation of order $m\ge3$ can preserve an $(n_4)$ configuration only if $n$ has suitable divisibility properties; it is the fact that $23$ is prime, $23\equiv 3\pmod 4$ and $23\equiv 2\pmod 3$ that kills all cases at once.  For comparison, the Bokowski--Schewe $(18_4)$, the Gr\"unbaum--Rigby $(21_4)$ \cite{GR90} and Cuntz's $(22_4)$ have symmetry groups of orders $6$, $42$ and $4$ respectively.
+\end{remark}
+
+\section{Klein-symmetric configurations}\label{sec:classification}
+
+Throughout this section $\cC=(\cP,\cL)$ is a geometric $(23_4)$ configuration, over $\RR$ or over $\CC$, which is invariant under a Klein four-group $V$ of collineations.  Choosing coordinates in which $V=\{\operatorname{diag}(\pm1,\pm1,\pm1)\}$, we write $\sigma_i$ for the element of $V$ with $+1$ in position $i$, $O_1,O_2,O_3$ for the three fixed points of $V$ (the coordinate points) and $\ell_i$ for the coordinate lines $\{x_i=0\}$.  A point is fixed by $\sigma_i$ if and only if it is $O_i$ or lies on $\ell_i$; every point not on $\ell_1\cup\ell_2\cup\ell_3$ has a regular orbit of size $4$, and every point of $\ell_i\setminus\{O_j,O_k\}$ has an orbit of size $2$ (a \emph{pair}, its ``mate'' being its image under $\sigma_j$).  Dually, a line is fixed by $\sigma_i$ if and only if it is $\ell_i$ or passes through $O_i$; lines through $O_i$ other than $\ell_j,\ell_k$ form pairs, and all other lines have regular orbits.  We write $c$ and $c'$ for the numbers of regular orbits of points and of lines in $\cC$, and $b_i$, $b'_i$ for the numbers of pairs on $\ell_i$ and through $O_i$.
+
+\subsection{Structure}
+\begin{proposition}\label{prop:structure}
+After renumbering the coordinates, the following hold.
+\begin{enumerate}
+\item[(a)] $O_1\in\cP$, $O_2,O_3\notin\cP$, $\ell_1\in\cL$, $\ell_2,\ell_3\notin\cL$; the line $\ell_1$ contains exactly two pairs $T_1,T_2$ of $\cP$, and the four lines of $\cL$ through $O_1$ are exactly the lines $O_1q$, $q\in T_1\cup T_2$.
+\item[(b)] $(c,c')\in\{(4,4),(4,3),(3,4)\}$.  If $c=4$ then $b_2+b_3=1$, and if $c=3$ then $\{b_2,b_3\}=\{1,2\}$; dually for $c'$ and $b'_2,b'_3$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Let $a$ and $a'$ be the numbers of coordinate points in $\cP$ and of coordinate lines in $\cL$.  We first determine $a$ and $a'$.  Counting the points of $\cP$ and the lines of $\cL$ orbit by orbit gives
+\[
+23=a+2\sum_i b_i+4c=a'+2\sum_i b'_i+4c',
+\]
+so $a$ and $a'$ are odd.  Suppose that $O_i\in\cP$.  The lines of $\cL$ through $O_i$ are $\ell_j$ and $\ell_k$, if these lie in $\cL$, together with pairs of lines interchanged by $\sigma_j$ or $\sigma_k$; hence
+\[
+4\equiv[\ell_j\in\cL]+[\ell_k\in\cL]\pmod 2 .
+\]
+Suppose for sake of contradiction that $a=3$.  Then the congruence above holds for all three indices $i$, forcing the three indicators $[\ell_i\in\cL]$ to be equal.  Since $a'$ is odd, all three are equal to $1$, so $a'=3$ and $b'_i=1$ for every $i$; but then $23=3+6+4c'$, which is impossible.  It follows that $a=1$, say $O_1\in\cP$, and by the dual argument $a'=1$.  Since exactly one $\ell_i$ lies in $\cL$, the congruence at $O_1$ forces $\ell_2,\ell_3\notin\cL$ and $\ell_1\in\cL$, and then $4=2b'_1$ gives $b'_1=2$; the dual argument applied to $\ell_1$ gives $b_1=2$.
+
+We now prove (a).  Let $q$ be one of the four points of $\cP$ on $\ell_1$.  Since $O_2,O_3\in\ell_1$, the only lines through $q$ that are not regular are $\ell_1$ and the line $O_1q$.  Note that a regular line $g$ through $q$ comes with the line $\sigma_1g\ne g$, which also passes through $q$, and that the orbit of $g$ contains no further line through $q$, since such a line would pass through $q$ and $\sigma_2q$ and hence coincide with $\ell_1$.  Counting the lines of $\cL$ through $q$, we obtain $4=1+[O_1q\in\cL]+2k$ for some integer $k$, whence $O_1q\in\cL$.  Thus the four lines $O_1q$, for the four points $q$ of $\cP$ on $\ell_1$, are lines of $\cL$ through $O_1$; as $\cL$ contains exactly four lines through $O_1$, these are all of them.  This proves (a).
+
+We next prove (b).  Let $s\in\cP\cap\ell_3$.  The lines through $s$ are $\ell_3\notin\cL$, the line $O_3s$, and regular lines.  The regular lines through $s$ come in pairs $\{g,\sigma_3g\}$, with at most one pair from each regular orbit, since two pairs from one orbit would give a line through $s$ and $\sigma_1s$, that is, the line $\ell_3$.  Lines through $O_1$ or $O_2$ meet $\ell_3$ only in $O_1$ or $O_2$, so none of them passes through $s$.  Counting, we obtain $4=[O_3s\in\cL]+2k$, whence $O_3s\notin\cL$ and $k=2$: the point $s$ lies on two pairs of regular lines coming from two different regular orbits.  The same argument applies to the points of $\cP$ on $\ell_2$ and, dually, to the lines of $\cL$ through $O_2$ and $O_3$.  This proves (b).
+
+It remains to prove (c).  A regular line meets $\ell_3$ in exactly one point, so a regular orbit of lines is attached, in the sense of (b), to at most one pair of $\cP$ on $\ell_3$.  Therefore $2b_3\le c'$, and likewise $2b_2\le c'$, $2b'_3\le c$ and $2b'_2\le c$.  Substituting $a=a'=1$ and $b_1=b'_1=2$ into the count above gives $b_2+b_3=9-2c$ and $b'_2+b'_3=9-2c'$, with $c,c'\le4$.  Combining these with the inequalities we obtain $9-2c\le c'$ and $9-2c'\le c$, whence $c,c'\ge3$.  If $c=3$, then $b_2+b_3=3$ with $b_2,b_3\le c'/2\le2$, so $\{b_2,b_3\}=\{1,2\}$ and $c'=4$.  If $c=4$, then $b_2+b_3=1$.  The dual statements hold with the roles of $c$ and $c'$ interchanged.  Thus $(c,c')\in\{(4,4),(4,3),(3,4)\}$, and the proof is complete.
+\end{proof}
+
+By duality (the standard correlation $(x{:}y{:}z)\mapsto[x{:}y{:}z]$ commutes with $V$ and maps Klein-symmetric $(23_4)$ configurations to Klein-symmetric $(23_4)$ configurations) we may assume $c=4$; by the coordinate interchange $y\leftrightarrow z$ we may assume, in the case $c'=3$, that $(b'_2,b'_3)=(1,2)$.  Thus there are four cases to consider.  In two of them $c'=4$, with the pair of $\cP$ on $\ell_3$ and the pair of $\cL$ through $O_3$ or through $O_2$ (the remaining two combinations are obtained by $y\leftrightarrow z$), and $c'=3$ with the pair of $\cP$ on $\ell_3$ or on $\ell_2$.  We write $T_i=\{q_i,q_i'\}$ ($q_i'=\sigma_2q_i$), $m_i=O_1q_i$, $m_i'=O_1q_i'$, $S=\{s,s'\}$ for the pair of $\cP$ on $\ell_2\cup\ell_3$, $P_j=\{\alpha p_j:\alpha\in V\}$ for the regular point orbits and $G_a=\{\alpha g_a:\alpha\in V\}$ for the regular line orbits, and $n_k,n_k'$ for the pairs of lines through $O_2$ or $O_3$.
+
+\begin{lemma}[local incidence rules]\label{lem:local}
+\begin{enumerate}
+\item[(i)] $O_1$ lies exactly on $m_1,m_1',m_2,m_2'$; each $q_i$ lies on $\ell_1$, on $m_i$, and on exactly one pair $\{g,\sigma_1g\}$ of regular lines, from one orbit; the orbits attached to $T_1$ and to $T_2$ are different.  Dually, each $m_i$ contains $O_1$, $q_i$ and exactly one pair $\{p,\sigma_1p\}$ of regular points, and the orbits attached to $\{m_1,m_1'\}$ and to $\{m_2,m_2'\}$ are different.
+\item[(ii)] Each point of $S$ lies on no line of any pair $\{n_k,n_k'\}$ and on exactly two pairs $\{g,\sigma_Sg\}$ of regular lines from two different orbits, where $\sigma_S$ is the element of $V$ fixing $S$ pointwise.  Dually for the lines $n_k$.
+\item[(iii)] A regular point lies on at most one line of each regular orbit and on at most one line through each $O_i$; a regular line contains at most one point of each regular orbit and at most one point on each $\ell_i$.
+\item[(iv)] All degrees equal $4$, and no two points lie on two common lines.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Statements (i) and (ii) were established in the proof of Proposition~\ref{prop:structure}, together with the fact that two points of $\ell_1$ never lie on a common regular line, which is what separates the orbits attached to $T_1$ from those attached to $T_2$.
+
+We now prove (iii).  Let $p$ be a regular point.  Then $p$ lies on the unique line $O_ip$ through $O_i$, so $p$ lies on at most one line of $\cL$ through each centre.  Suppose for sake of contradiction that $p$ lies on two lines $g$ and $\alpha g$ of one regular orbit, where $\alpha\in V\setminus\{e\}$.  Then $g$ contains both $p$ and $\alpha p$, and hence passes through the fixed point of $\alpha$, contradicting the regularity of $g$.  Thus $p$ lies on at most one line of each regular orbit, proving (iii).
+
+Lastly, (iv) is part of the definition of a $(23_4)$ configuration.  This completes the proof.
+\end{proof}
+
+\subsection{Enumeration of quotient structures}
+A \emph{quotient structure} is an incidence structure on the $46$ symbols $O_1$, $q_i,q_i'$, $s,s'$, $\alpha p_j$, $\ell_1$, $m_i,m_i'$, $n_k,n_k'$, $\alpha g_a$ that satisfies Lemma~\ref{lem:local} and is invariant under the action of $V$ on the symbols.  Such a structure is determined by which regular orbits are attached to $T_1,T_2$, to $\{m_1,m_1'\},\{m_2,m_2'\}$, to $S$ and to the pairs $\{n_k,n_k'\}$, together with the ``coset'' data saying which two of the four lines (points) of an attached orbit pass through (lie on) a given point (line); and, for each incident pair $(P_j,G_a)$ of regular orbits, a \emph{voltage} $\alpha\in V$ meaning $\beta p_j\in\beta\alpha g_a$ for all $\beta\in V$.  The degrees of Lemma~\ref{lem:local}(iv) determine how many regular orbits of lines each $P_j$ is incident with (namely $4$ minus the number of attachments of $P_j$), and dually.  The choice of representatives $q_i,s,p_j,g_a,n_k$ is used to normalize the coset data and the voltages on a spanning forest of the graph of incident pairs $(P_j,G_a)$; the relabellings $T_1\leftrightarrow T_2$ (together with $P_1\leftrightarrow P_2$ and $G_1\leftrightarrow G_2$), $P_3\leftrightarrow P_4$, $G_3\leftrightarrow G_4$ are used to normalize the attachments; the remaining redundancy is removed by computing with \texttt{nauty} \cite{MP14} a canonical form of the coloured graph obtained from the Levi graph of the structure by adjoining, for $i=1,2,3$, a vertex of colour $i$ for every pair $\{v,\sigma_iv\}$ of points or of lines with $\sigma_iv\ne v$; two quotient structures give the same system of equations up to renaming exactly when these coloured graphs are isomorphic.  The condition (iv) that no two points lie on two common lines is imposed incrementally while the voltages are assigned, which prunes the search drastically.  Since an erroneous identification of two inequivalent quotient structures would silently lose a case, we audited the identifications independently of \texttt{nauty}'s internals: the enumeration produces $43{,}184$ raw structures, which \texttt{nauty} sorts into $4021$ classes; for each of the $39{,}163$ resulting identifications we relabelled both structures by their canonical labelings and checked with independent code that the two coloured graphs become identical, so every identification is backed by an explicit isomorphism.  Figure~\ref{fig:rlg} shows the quotient structures of the two configurations of Theorem~\ref{thm:main}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{reduced_levi_both.pdf}
+\caption{The quotient structures (reduced Levi graphs) of the two configurations.  Vertices are the $V$-orbits of points (circles) and of lines (squares), with their sizes; an edge joins a point orbit to a line orbit between which incidences occur, and its label lists the $\alpha\in V$ for which the chosen representative point lies on $\alpha$ applied to the chosen representative line ($V$ standing for all four).  The representatives are the first points and lines of each orbit in \ref{app:incidenceA}, so the labels are not normalized as in the enumeration.  By Proposition~\ref{prop:structure} and Lemma~\ref{lem:local} every Klein-symmetric $(23_4)$ has a quotient structure of this shape; Proposition~\ref{prop:enum} counts them.}
+\label{fig:rlg}
+\end{figure}
+
+\begin{proposition}\label{prop:enum}
+The numbers of inequivalent quotient structures in the four cases are $1361$ ($c'=4$, $S\subset\ell_3$, $\{n_1,n_1'\}$ through $O_3$), $1286$ ($c'=4$, $S\subset\ell_3$, $\{n_1,n_1'\}$ through $O_2$), $699$ and $675$ ($c'=3$, $S\subset\ell_3$ resp.\ $S\subset\ell_2$), $4021$ in all.
+\end{proposition}
+
+\subsection{The polynomial systems}
+Fix a quotient structure and write $q_1=(0{:}1{:}t_1)$, $q_2=(0{:}1{:}t_2)$, $s=(1{:}S{:}0)$ or $(1{:}0{:}S)$, $p_j=(1{:}u_j{:}v_j)$, $g_a=[1{:}m_a{:}n_a]$, $n_k=[1{:}S'_k{:}0]$ or $[1{:}0{:}S'_k]$; the lines $m_i=[0{:}t_i{:}-1]$ are determined.  The diagonal rescalings of the coordinates commute with $V$ and allow us to normalize $t_1=S=1$, leaving $18$ unknowns.  Each incidence of the quotient structure is a bilinear equation; there are $20$ distinct ones.  A solution gives a $(23_4)$ configuration with incidence structure the given quotient structure if and only if the $23$ points and the $23$ lines are distinct and no incidence outside the structure occurs.  We computed with \textsc{Singular} \cite{Singular} a Gr\"obner basis of the ideal $I$ of the equations, saturated with respect to the distinctness conditions (all unknowns nonzero, $t_2^2\ne1$, $(u_j^2,v_j^2)\ne(u_k^2,v_k^2)$, $(m_a^2,n_a^2)\ne(m_b^2,n_b^2)$, $S_k'^2\ne S_l'^2$ for pairs through the same $O_i$), and solved the resulting ideal $J$ when it is zero-dimensional.
+
+\begin{proposition}\label{prop:solve}
+Of the $4021$ quotient structures, $4018$ have no complex solutions, since the saturated ideal $J$ is the unit ideal.  The remaining three are as follows.
+\begin{enumerate}
+\item[(a)] a structure with $S\subset\ell_3$, $\{n_1,n_1'\}$ through $O_3$, whose two solutions both satisfy $S'_1=1$, which produces an incidence not in the structure; saturating by $1-S'_1$ gives the unit ideal, so it has no realization;
+\item[(b)] a structure with $S\subset\ell_3$, $\{n_1,n_1'\}$ through $O_3$, with exactly two nondegenerate solutions, both real and with coordinates in $\QQ(\sqrt{17})$; they are conjugate under $\sqrt{17}\mapsto-\sqrt{17}$, and in the normalization $u_1=v_1=1$ they are carried onto the $\QQ(\sqrt{17})$-model \eqref{eq:points17} of $(\cP_B,\cL_B)$ by the diagonal projectivities $\operatorname{diag}\bigl(1,\tfrac{1-\sqrt{17}}{8},\tfrac{1-\sqrt{17}}{8}\bigr)$ and $\operatorname{diag}\bigl(1,-\tfrac{1+\sqrt{17}}{8},-\tfrac12\bigr)$, which we verified on all $23$ points by exact arithmetic;
+\item[(c)] a structure with $S\subset\ell_3$, $\{n_1,n_1'\}$ through $O_2$, with exactly one solution, which is rational and nondegenerate, namely
+$t_2=u_1=v_1=\tfrac23$, $u_2=-\tfrac32$, $v_2=-1$, $u_3=\tfrac16$, $u_4=-\tfrac56$, $v_3=v_4=-\tfrac13$, $S'_1=3$, $(m_a)=(-2,3,-1,-1)$, $(n_a)=(2,-\tfrac92,-\tfrac12,\tfrac52)$; clearing denominators gives exactly the points \eqref{eq:pointsA} and lines \eqref{eq:linesA}.
+\end{enumerate}
+\end{proposition}
+
+Every statement in Proposition~\ref{prop:solve} is thus established by exact computation.  For each of the $4018$ empty systems we also extracted from Singular an explicit certificate $1=\sum_i a_if_i$ with polynomial coefficients $a_i$, and for the structure in (a) a certificate that $1-S_0T_0$ lies in its ideal; all $4019$ certificates were re-verified independently by exact polynomial arithmetic in a standard-library Python script, so that this part of the proof does not depend on the correctness of any Gr\"obner basis implementation.  All $4021$ Gr\"obner basis computations were repeated independently in Macaulay2 \cite{M2}, with the same saturations; the two systems agree on the dimension and, where zero-dimensional, on the degree of every saturated ideal.  The whole computation, enumeration and Gr\"obner bases together, takes about ten seconds.
+
+\subsection{Proof of Theorem \ref{thm:classification}}
+
+\begin{proof}[Proof of Theorem~\ref{thm:classification}]
+Existence is Theorem~\ref{thm:main}.  We prove uniqueness.  Let $\cC$ be a geometric $(23_4)$ configuration over $\RR$ or $\CC$ with a Klein four-group $V$ of collineations.  We first reduce to one of the quotient structures.  By Proposition~\ref{prop:structure} and Lemma~\ref{lem:local}, after a change of coordinates commuting with $V$, an interchange of $y$ and $z$, and possibly passing to the dual configuration, the incidence structure of $\cC$ is one of the $4021$ quotient structures of Proposition~\ref{prop:enum}, and the points and lines of $\cC$ give a solution of the corresponding polynomial system satisfying all of the side conditions.
+
+We next identify the solution.  By Proposition~\ref{prop:solve}, this solution is one of the three nondegenerate solutions in (b) and (c), which are projectively equivalent to $(\cP_B,\cL_B)$ or equal to $(\cP_A,\cL_A)$.  Since both configurations are self-polar, passing to the dual configuration produces nothing new.  It remains to observe that the equivalences are realized by real projectivities when $\cC$ is real: by Lemma~\ref{lem:general}, $\cC$ contains four real points in general position, and a projectivity mapping four real points in general position to four real points is real.  Thus $\cC$ is projectively equivalent over $\RR$ to $(\cP_A,\cL_A)$ or $(\cP_B,\cL_B)$.
+
+The statements about polarities were established in Section~\ref{sec:config}.  This completes the proof of Theorem~\ref{thm:classification}.
+\end{proof}
+
+\begin{remark}
+The proof is a computation, but a small one.  The enumeration of the $4021$ quotient structures takes a few seconds, and the Gr\"obner basis computations for all of them together take a few seconds more.  The combinatorial content, Proposition~\ref{prop:structure} and Lemma~\ref{lem:local}, is what reduces the problem from a hopeless search over all combinatorial $(23_4)$ configurations to a few thousand small bilinear systems.
+\end{remark}
+
+\section{How the configurations were found}\label{sec:search}
+
+Theorem~\ref{thm:symmetry} suggested looking for configurations with the largest possible group, $V$, and, to shrink the search further, imposing a polarity (which halves the number of unknowns, from $18$ to $11$).  Rather than enumerating quotient structures first, we initially searched directly for $V$-symmetric self-polar $(23_4)$ configurations in the finite projective planes $\PP^2(\FF_p)$ for the primes $p=11,13,17,19,23$.  For each diagonal form and each choice of orbits, a constraint solver (Google OR-Tools CP-SAT) searched for a $V$-invariant set of $23$ points whose polar graph is $4$-regular without $4$-cycles.  This produced $17$ combinatorially distinct configurations over the various fields.  Exactly one combinatorial type occurred for more than one prime (for $p=13,17,19$, always with an automorphism group of order $8$), and this ``multi-prime'' type was the natural candidate for a configuration defined over a number field, because a configuration over a number field $K$ reduces modulo every prime of $K$ of degree one, so its combinatorial type reappears for a positive proportion of primes, whereas a mod-$p$ accident does not.  Lifting confirmed this.  The polynomial system attached to the recurring type has eight complex solutions (two choices of sign of $\sqrt{-2}$, absorbed by a rescaling, times the four embeddings of $\QQ(\tau)$), all giving $(\cP_B,\cL_B)$, and the systems attached to the other $16$ types have no complex solutions.  (Consistently with the field $\QQ(\tau)$, the recurring type appeared exactly for those primes in the list for which $17$ is a square modulo $p$.)  Finally, dropping the polarity and carrying out the general classification of Section~\ref{sec:classification} produced the integral configuration $(\cP_A,\cL_A)$.  The finite-field search had missed it because that search only used diagonal Gram matrices, whereas the Gram matrix of the polarity of $(\cP_A,\cL_A)$, $x^2+6yz$, interchanges $\sigma_2$ and $\sigma_3$.  It is a curious twist that the more elementary of the two configurations was found last, and by a classification rather than by a search.
+
+We stress which parts of this paper are proved by hand and which by computer.  Theorem~\ref{thm:main} rests on finite exact computations, in $\ZZ$ and in $\QQ(\tau)$, that can be redone by hand (\ref{app:incidenceA} and \ref{app:script}).  Theorem~\ref{thm:symmetry}, Proposition~\ref{prop:structure} and Lemma~\ref{lem:local} are proved by hand.  Theorem~\ref{thm:classification} depends on the correctness of the enumeration programs, of \texttt{nauty} and of the Gr\"obner basis computations, which were carried out in \textsc{Singular} and repeated in Macaulay2; the emptiness of all these solution sets is certified by Gr\"obner bases equal to $\{1\}$, the degenerate solutions in Proposition~\ref{prop:solve}(a) are excluded by exact saturations, and the projective equivalences in Proposition~\ref{prop:solve}(b) are exhibited exactly.  The proofs of Theorems~\ref{thm:main}, \ref{thm:symmetry} and~\ref{thm:classification} therefore contain no floating-point computation.
+
+\section{Directions for Further Research}\label{sec:remarks}
+
+\begin{question}
+Are the two configurations of Theorem~\ref{thm:main} the only geometric $(23_4)$ configurations?  Theorem~\ref{thm:classification} settles the question among Klein-symmetric ones.  The methods of Section~\ref{sec:classification} apply, with more work, to configurations with a single symmetry of order two.  An involution is a harmonic homology, and the counting arguments of Section~\ref{sec:classification} reduce this case to nine orbit patterns, each with a bipartite quotient graph on nine to eleven pairs of points and lines carrying $\ZZ_2$-voltages and about $36$ unknowns; admissible graphs exist in every pattern, and we estimate the resulting enumeration at $10^7$ to $10^9$ polynomial systems; a complete answer would require the enumeration of all combinatorial or topological $(23_4)$ configurations, which is far beyond the range of the methods of \cite{BP14,BP15}.  There are $971{,}171$ combinatorial $(18_4)$ and $269{,}224{,}653$ combinatorial $(19_4)$ configurations \cite{OC12}, and even the uniqueness of the known $(20_4)$ and $(21_4)$ configurations among all geometric configurations of their size is open.
+\end{question}
+
+
+
+
+
+\begin{question}
+Which $(n_4)$ configurations are self-polar, and which are self-dual?  Both of our $(23_4)$ configurations are self-polar, and it would be interesting to know which of the known $(18_4)$, $(22_4)$ and $(26_4)$ configurations admit polarities or self-dualities, and whether self-polar $(n_4)$ configurations exist for all $n\ge18$, $n\ne19$.
+\end{question}
+
+\appendix
+\renewcommand{\thesection}{Appendix \Alph{section}}
+\renewcommand{\thesubsection}{\Alph{section}.\arabic{subsection}}
+\section{The incidence table of the integral configuration}\label{app:incidenceA}
+
+For each line $[a{:}b{:}c]$ of \eqref{eq:linesA} the table lists the four points of $\cP_A$ on it, with the labels of Section~\ref{sec:config}.
+
+\begin{center}
+\small
+\begin{tabular}{@{}l@{\quad}l@{}}
+\toprule
+line & points on it\\
+\midrule
+$[1:0:0]$ & $T_1^{+},\ T_1^{-},\ T_2^{+},\ T_2^{-}$\\
+$[0:1:-1]$ & $O_1,\ T_1^{+},\ R_1^{++},\ R_1^{--}$\\
+$[0:1:1]$ & $O_1,\ T_1^{-},\ R_1^{-+},\ R_1^{+-}$\\
+$[0:2:-3]$ & $O_1,\ T_2^{+},\ R_2^{--},\ R_2^{++}$\\
+$[0:2:3]$ & $O_1,\ T_2^{-},\ R_2^{+-},\ R_2^{-+}$\\
+$[1:0:3]$ & $R_3^{+-},\ R_3^{--},\ R_4^{--},\ R_4^{+-}$\\
+$[1:0:-3]$ & $R_3^{-+},\ R_3^{++},\ R_4^{++},\ R_4^{-+}$\\
+$[1:-2:2]$ & $T_1^{+},\ R_2^{++},\ R_3^{+-},\ R_4^{++}$\\
+$[1:2:-2]$ & $T_1^{+},\ R_2^{--},\ R_3^{-+},\ R_4^{--}$\\
+$[1:2:2]$ & $T_1^{-},\ R_2^{-+},\ R_3^{--},\ R_4^{-+}$\\
+$[1:-2:-2]$ & $T_1^{-},\ R_2^{+-},\ R_3^{++},\ R_4^{+-}$\\
+$[2:6:-9]$ & $T_2^{+},\ R_1^{++},\ R_3^{++},\ R_4^{--}$\\
+$[2:-6:9]$ & $T_2^{+},\ R_1^{--},\ R_3^{--},\ R_4^{++}$\\
+$[2:-6:-9]$ & $T_2^{-},\ R_1^{-+},\ R_3^{-+},\ R_4^{+-}$\\
+$[2:6:9]$ & $T_2^{-},\ R_1^{+-},\ R_3^{+-},\ R_4^{-+}$\\
+$[2:-2:-1]$ & $S^{+},\ R_1^{++},\ R_2^{+-},\ R_4^{++}$\\
+$[2:2:1]$ & $S^{-},\ R_1^{--},\ R_2^{-+},\ R_4^{--}$\\
+$[2:2:-1]$ & $S^{-},\ R_1^{-+},\ R_2^{--},\ R_4^{-+}$\\
+$[2:-2:1]$ & $S^{+},\ R_1^{+-},\ R_2^{++},\ R_4^{+-}$\\
+$[2:-2:5]$ & $S^{+},\ R_1^{--},\ R_2^{--},\ R_3^{+-}$\\
+$[2:2:-5]$ & $S^{-},\ R_1^{++},\ R_2^{++},\ R_3^{-+}$\\
+$[2:2:5]$ & $S^{-},\ R_1^{+-},\ R_2^{+-},\ R_3^{--}$\\
+$[2:-2:-5]$ & $S^{+},\ R_1^{-+},\ R_2^{-+},\ R_3^{++}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+
+\section{The verification script for the integral configuration}\label{app:script}
+
+The following standard-library Python script builds the points \eqref{eq:pointsA} and lines \eqref{eq:linesA} and checks all defining properties with integer arithmetic; it runs silently if every assertion holds and raises an error otherwise.
+
+\begin{verbatim}
+from itertools import product, combinations
+P = [(1,0,0)] + [(0,1,s) for s in (1,-1)] + [(0,3,2*s) for s in (1,-1)] \
+  + [(1,s,0) for s in (1,-1)] \
+  + [(a,e*b,d*c) for (a,b,c) in [(3,2,2),(2,3,2),(6,1,2),(6,5,2)]
+     for e,d in product((1,-1),repeat=2)]
+L = [(1,0,0)] + [(0,1,s) for s in (1,-1)] + [(0,2,3*s) for s in (1,-1)] \
+  + [(1,0,3*s) for s in (1,-1)] \
+  + [(a,e*b,d*c) for (a,b,c) in [(1,2,2),(2,6,9),(2,2,1),(2,2,5)]
+     for e,d in product((1,-1),repeat=2)]
+inc = [[sum(x*y for x,y in zip(p,l)) == 0 for l in L] for p in P]
+assert len(P) == 23 and len(L) == 23
+assert all(sum(r) == 4 for r in inc)
+assert all(sum(inc[i][j] for i in range(23)) == 4 for j in range(23))
+assert all(sum(a and b for a,b in zip(inc[i],inc[j])) <= 1
+           for i,j in combinations(range(23),2))
+cross = lambda u,v: (u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2],
+                     u[0]*v[1]-u[1]*v[0])
+assert all(cross(P[i],P[j]) != (0,0,0) for i,j in combinations(range(23),2))
+assert all(cross(L[i],L[j]) != (0,0,0) for i,j in combinations(range(23),2))
+\end{verbatim}
+
+\begin{thebibliography}{99}
+\bibitem{BGPZ24} L. W. Berman, G. G\'evay, T. Pisanski: On a new $(21_4)$ polycyclic configuration, Electron. J. Combin. 31 (2024) no. 4, Paper 4.54.
+\bibitem{BGS09} J. Bokowski, B. Gr\"unbaum, L. Schewe: Topological configurations $(n_4)$ exist for all $n\ge 17$, European J. Combin. 30 (2009) 1778--1785.
+\bibitem{BP14} J. Bokowski, V. Pilaud: Enumerating topological $(n_k)$-configurations, Comput. Geom. 47 (2014) 175--186.
+\bibitem{BP15} J. Bokowski, V. Pilaud: On topological and geometric $(19_4)$ configurations, European J. Combin. 50 (2015) 4--17.
+\bibitem{OC12} O. P\'aez Osuna, R. San Agust\'in Chi: The combinatorial $(19_4)$ configurations, Ars Math. Contemp. 5 (2012) 231--237.
+\bibitem{BP16} J. Bokowski, V. Pilaud: Quasi-configurations: building blocks for point--line configurations, Ars Math. Contemp. 10 (2016) 99--112.
+\bibitem{BS05} J. Bokowski, L. Schewe: There are no realizable $15_4$- and $16_4$-configurations, Rev. Roumaine Math. Pures Appl. 50 (2005) 483--493.
+\bibitem{BS13} J. Bokowski, L. Schewe: On the finite set of missing geometric configurations $(n_4)$, Comput. Geom. 46 (2013) 532--540.
+\bibitem{Cun18} M. Cuntz: $(22_4)$ and $(26_4)$ configurations of lines, Ars Math. Contemp. 14 (2018) 157--163.
+\bibitem{M2} D. R. Grayson, M. E. Stillman: Macaulay2, a software system for research in algebraic geometry, \url{https://macaulay2.com}.
+\bibitem{Singular} W. Decker, G.-M. Greuel, G. Pfister, H. Sch\"onemann, \emph{\textsc{Singular} --- A computer algebra system for polynomial computations}, \url{https://www.singular.uni-kl.de}.
+\bibitem{GP21} G. G\'evay, T. Pisanski: Eventually, geometric $(n_k)$ configurations exist for all $n$, preprint, \href{https://arxiv.org/abs/2104.00045}{arXiv:2104.00045}.
+\bibitem{Gru00a} B. Gr\"unbaum: Connected $(n_4)$ configurations exist for almost all $n$, Geombinatorics 10 (2000) 24--29.
+\bibitem{Gru00} B. Gr\"unbaum: Which $(n_4)$ configurations exist?, Geombinatorics 9 (2000) 164--169.
+\bibitem{Gru02} B. Gr\"unbaum: Connected $(n_4)$ configurations exist for almost all $n$ -- an update, Geombinatorics 12 (2002) 15--23.
+\bibitem{Gru06} B. Gr\"unbaum: Connected $(n_4)$ configurations exist for almost all $n$ -- second update, Geombinatorics 16 (2006) 254--261.
+\bibitem{GR90} B. Gr\"unbaum, J. F. Rigby: The real configuration $(21_4)$, J. London Math. Soc. (2) 41 (1990) 336--346.
+\bibitem{Gru09} B. Gr\"unbaum: Configurations of Points and Lines, Graduate Studies in Mathematics 103, American Mathematical Society, Providence, RI, 2009.
+\bibitem{MP14} B. D. McKay, A. Piperno: Practical graph isomorphism, II, J. Symbolic Comput. 60 (2014) 94--112.
+\bibitem{PS13} T. Pisanski, B. Servatius: Configurations from a Graphical Viewpoint, Birkh\"auser Advanced Texts, Birkh\"auser, New York, 2013.
+\end{thebibliography}
+
+\end{document}
