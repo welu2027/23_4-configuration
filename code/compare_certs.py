@@ -1,5 +1,7 @@
+import os
 import json, sys, itertools
-sys.path.insert(0,'/home/claude/repo/code')
+_HERE=os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0,_HERE)
 from classify_V_general import Layout, V, E, S1, S2, S3, certificate, vmul
 from solve_general import dotpoly, poly_str
 
@@ -60,8 +62,8 @@ def check(pl):
 
 for tag,fname,cp,bax,bp in [('3_3_233','23_B_4_3_3_233',3,3,[2,3,3]),('3_3_223','23_B_4_3_3_223',3,3,[2,2,3])]:
     lay=Layout(4,cp,bax,bp)
-    mine=set(json.load(open('/home/claude/all_%s.json'%tag)).keys())
-    d=json.load(open('/home/claude/repo/certificates/%s_certificates.json'%fname))
+    mine=set(json.load(open(os.path.join(os.environ.get('ALL_DIR','.'),'all_%s.json'%tag))).keys())
+    d=json.load(open(os.path.join(_HERE,'..','certificates','%s_certificates.json'%fname)))
     certs={}; nbad=0; nfail=0; keys_old=[]
     for idx,s in d['structures'].items():
         pl,bad=decode(lay,s['generators'])
