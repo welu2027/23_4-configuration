@@ -28,13 +28,6 @@ Requirements for reproduction: Python 3.12 with pynauty, numpy, mpmath, sympy; S
 `exact_equivalence_119.json`: the projectivities of Proposition 4.4(b) over Q(sqrt17).
 
 ## Provenance
-An abstract under this title was submitted to the 2027 Joint Mathematics Meetings (AMS Special Session
-on Applied and Computational Algebraic Geometry, I) on September 7, 2026. The abstract already
-states both geometric (23_4) configurations, the resulting characterisation that geometric
-(n_4) configurations exist if and only if n >= 18 and n != 19, the bound of four on the order of the
-projective symmetry group of a geometric (23_4) configuration, and the exact Groebner-basis
-classification of the Klein-symmetric case. Receipts are provided in `documentation/`.
-
-An independent solution by W. Strinz was made public the following day, on September 8, 2026
-(github.com/wstrinz/configuration-23-4). The two works were arrived at independently, and that
-solution is acknowledged in a note in the paper.
+After a preprint of this work was posted on Zenodo and submitted to the
+Joint Mathematics Meetings 2027, a (23_4) configuration, which coincides with (PA, LA) up to the
+coordinate interchange y ↔ z, was found independently by W. Strinz, and is accurately cited in the paper.
