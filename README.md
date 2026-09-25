@@ -2,8 +2,6 @@
 
 Two geometric (23_4) configurations, the symmetry theorem, and the classification of the Klein-symmetric case.
 
-Abstract submitted September 7, 2026; note added September 9, 2026.
-
 ## Verify the main theorem
     python3 code/check_23_4.py
     python3 code/verify_23_4.py
