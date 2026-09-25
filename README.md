@@ -23,6 +23,16 @@ degenerate structure, with exact rational arithmetic and no computer-algebra sys
     python3 code/rigidity_field.py
 Requirements for reproduction: Python 3.12 with pynauty, numpy, mpmath, sympy; Singular; PARI/GP.
 
+## Connections to other fields (Section 8)
+    cd applications
+    python3 exact_B.py
+    python3 sample_random.py
+    python3 anneal_search.py
+    python3 make_figure.py
+proves the expansion and relay properties of (PB, LB) exactly, and reproduces the comparison with 20,000
+random combinatorial (23_4) configurations. Requirements: numpy, networkx, sympy, matplotlib.
+See `applications/README.md`.
+
 ## Data
 `integer_23_4_certificate.json`, `geometric_23_4_certificate.json`: coordinates and incidence matrices.
 `exact_equivalence_119.json`: the projectivities of Proposition 4.4(b) over Q(sqrt17).
