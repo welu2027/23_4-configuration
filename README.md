@@ -39,3 +39,5 @@ See `applications/README.md`.
 After a preprint of this work was posted on Zenodo and submitted to the
 Joint Mathematics Meetings 2027, a (23_4) configuration, which coincides with (PA, LA) up to the
 coordinate interchange y ↔ z, was found independently by W. Strinz, and is accurately cited in the paper.
+
+/documentation for timeline receipts
